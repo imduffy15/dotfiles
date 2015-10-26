@@ -4,6 +4,16 @@ sudo xcrun cc
 ```
 
 ```
+./.osx
+```
+
+```
+rsync --exclude ".git/" --exclude ".DS_Store" --exclude "bootstrap.sh" \
+	--exclude "README.md" --exclude "LICENSE-MIT.txt" -avh --no-perms . ~;
+source ~/.bashrc;
+```
+
+```
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
 

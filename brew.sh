@@ -58,7 +58,7 @@ brew install ios-sim
 brew install android-sdk
 brew install go
 
-brew caskroom/cask/brew-cask
+brew install caskroom/cask/brew-cask
 brew tap caskroom/versions
 
 brew cask install google-chrome

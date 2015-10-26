@@ -45,19 +45,6 @@ brew install homebrew/php/php55 --with-gmp
 # Messes with keychain sshkey agent
 # brew install homebrew/dupes/openssh
 
-brew install ack
-brew install git
-brew install git-lfs
-brew install imagemagick --with-webp
-brew install ssh-copy-id
-brew install tree
-brew install dos2unix
-brew install groovy
-brew install maven
-brew install ios-sim
-brew install android-sdk
-brew install go
-
 brew install caskroom/cask/brew-cask
 brew tap caskroom/versions
 
@@ -81,6 +68,19 @@ brew cask install transmission
 brew cask install vmware-fusion
 brew cask install virtualbox4330101610
 brew cask install virtualbox-extension-pack4330101610
+
+brew install ack
+brew install git
+brew install git-lfs
+brew install imagemagick --with-webp
+brew install ssh-copy-id
+brew install tree
+brew install dos2unix
+brew install maven
+brew install ios-sim
+brew install android-sdk
+brew install go
+
 
 # Remove outdated versions from the cellar.
 brew cleanup

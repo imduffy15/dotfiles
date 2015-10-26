@@ -23,7 +23,7 @@ source ~/.bashrc
 rvm install ruby-2.1.6 --with-gcc=clang
 rvm use 2.1.6
 rvm --default use 2.1.6
-gem install berks test-kitchen kitchen-vagrant rubocop foodcritic knife serverspec rspec
+gem install berkshelf test-kitchen kitchen-vagrant rubocop foodcritic chef serverspec rspec
 ```
 
 ```

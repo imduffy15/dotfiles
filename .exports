@@ -57,7 +57,7 @@ export M2=/usr/local/opt/maven/libexec
 export MAVEN_OPTS='-ms256m -mx2048m -XX:PermSize=64m -XX:MaxPermSize=512m -Dfile.encoding=UTF-8 -Djava.awt.headless=true -Djava.net.preferIPv4Stack=true'
 
 export GOPATH=~/.gopath
-export PATH=$GOPATH/bin;$PATH
+export PATH=$GOPATH/bin:$PATH
 
 export OS_NO_CACHE=1
 export OS_VOLUME_API_VERSION=2

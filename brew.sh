@@ -1,12 +1,17 @@
 #!/usr/bin/env bash
 
-# Install command-line tools using Homebrew.
-
 # Ask for the administrator password upfront.
 sudo -v
 
 # Keep-alive: update existing `sudo` time stamp until the script has finished.
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
+xcode-select --install
+sudo xcrun cc
+
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
 # Make sure we’re using the latest Homebrew.
 brew update
@@ -14,36 +19,59 @@ brew update
 # Upgrade any already-installed formulae.
 brew upgrade --all
 
-# Install GNU core utilities (those that come with OS X are outdated).
+# Install GNU core utilities (those that come with macOS are outdated).
 # Don’t forget to add `$(brew --prefix coreutils)/libexec/gnubin` to `$PATH`.
 brew install coreutils
 sudo ln -s /usr/local/bin/gsha256sum /usr/local/bin/sha256sum
 
 # Install some other useful utilities like `sponge`.
 brew install moreutils
-# Install GNU `find`, `locate`, `updatedb`, and `xargs`, `g`-prefixed.
+# Install GNU `find`, `locate`, `updatedb`, and `xargs`
 brew install findutils --with-default-names
 # Install GNU `sed`, overwriting the built-in `sed`.
 brew install gnu-sed --with-default-names
-
 # Install Bash 4.
+# Note: don’t forget to add `/usr/local/bin/bash` to `/etc/shells` before
+# running `chsh`.
 brew install bash
-brew tap homebrew/versions
 brew install bash-completion2
 
-sudo bash -c 'echo /usr/local/bin/bash >> /etc/shells'
-chsh -s /usr/local/bin/bash
+# Switch to using brew-installed bash as default shell
+if ! fgrep -q '/usr/local/bin/bash' /etc/shells; then
+  echo '/usr/local/bin/bash' | sudo tee -a /etc/shells;
+  chsh -s /usr/local/bin/bash;
+fi;
 
+# Install `wget` with IRI support.
 brew install wget --with-iri
+
+# Install GnuPG to enable PGP-signing commits.
+brew install gnupg
+
+# Install more recent versions of some macOS tools.
+brew install grep --with-default-names
+
+# Install font tools.
+brew tap bramstein/webfonttools
+brew install sfnt2woff
+brew install sfnt2woff-zopfli
+brew install woff2
 
 brew install jq
 
-brew install homebrew/dupes/grep --with-default-names
-brew install homebrew/dupes/screen
-brew install homebrew/php/php55 --with-gmp
-
-# Messes with keychain sshkey agent
-# brew install homebrew/dupes/openssh
+# Install other useful binaries.
+brew install git
+brew install ssh-copy-id
+brew install tree
+brew install go
+brew install sbt
+brew install scala
+brew install python --with-brewed-openssl
+brew install python3 --with-brewed-openssl
+pip install virtualenv
+export VIRTUAL_ENV_DISABLE_PROMPT=1
+virtualenv  --system-site-packages -p /usr/local/bin/python3 ~/.virtualenvs/default
+source ~/.bashrc
 
 brew install caskroom/cask/brew-cask
 brew tap caskroom/versions
@@ -52,35 +80,11 @@ brew cask install google-chrome
 brew cask install intellij-idea
 brew cask install java
 brew cask install flash
-brew cask install intel-haxm
 brew cask install caffeine
-brew cask install charles
-brew cask install disk-inventory-x 
-brew cask install graphviz
-brew cask install packer
-brew cask install vagrant
-brew cask install terraform
 brew cask install slack
 brew cask install spotify
 brew cask install sublime-text3
 brew cask install vlc
-brew cask install transmission
-brew cask install vmware-fusion
-brew cask install virtualbox4330101610
-brew cask install virtualbox-extension-pack4330101610
-
-brew install ack
-brew install git
-brew install git-lfs
-brew install imagemagick --with-webp
-brew install ssh-copy-id
-brew install tree
-brew install dos2unix
-brew install maven
-brew install ios-sim
-brew install android-sdk
-brew install go
-
 
 # Remove outdated versions from the cellar.
 brew cleanup

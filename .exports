@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # Make vim the default editor.
 export EDITOR='nano';
 
@@ -8,18 +10,14 @@ export NODE_REPL_HISTORY_SIZE='32768';
 # Use sloppy mode by default, matching web browsers.
 export NODE_REPL_MODE='sloppy';
 
+# Make Python use UTF-8 encoding for output to stdin, stdout, and stderr.
+export PYTHONIOENCODING='UTF-8';
+
 # Increase Bash history size. Allow 32³ entries; the default is 500.
 export HISTSIZE='32768';
 export HISTFILESIZE="${HISTSIZE}";
-
-# Avoid duplicates
-export HISTCONTROL=ignoredups:erasedups  
-# When the shell exits, append to the history file instead of overwriting it
-shopt -s histappend
-shopt -s cmdhist
-
-# After each command, append to the history file and reread it
-export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
+# Omit duplicates and commands that begin with a space from history.
+export HISTCONTROL='ignoreboth';
 
 # Prefer US English and use UTF-8.
 export LANG='en_US.UTF-8';
@@ -31,36 +29,11 @@ export LESS_TERMCAP_md="${yellow}";
 # Don’t clear the screen after quitting a manual page.
 export MANPAGER='less -X';
 
-# Always enable colored `grep` output.
-export GREP_OPTIONS='--color=auto';
+# Avoid issues with `gpg` as installed via Homebrew.
+# https://stackoverflow.com/a/42265848/96656
+export GPG_TTY=$(tty);
 
-# Add coreutils to path
-export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
-
-# Add gnu-sed to path
-export PATH="$(brew --prefix gnu-sed)/bin:$PATH"
-
-if [ -d "/usr/local/opt/android-sdk" ] ; then
-  export ANDROID_HOME=/usr/local/opt/android-sdk
-fi
-
-if [ -d "/usr/local/opt/groovy/libexec" ] ; then
-  export GROOVY_HOME=/usr/local/opt/groovy/libexec
-fi
-
-export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
+export JAVA_HOME=$(/usr/libexec/java_home)
 export IDEA_JDK=$(/usr/libexec/java_home)
 
-# configure Maven
-export M2_HOME=/usr/local/opt/maven/libexec
-export M2=/usr/local/opt/maven/libexec
-export MAVEN_OPTS='-ms256m -mx2048m -XX:PermSize=64m -XX:MaxPermSize=512m -Dfile.encoding=UTF-8 -Djava.awt.headless=true -Djava.net.preferIPv4Stack=true'
-
-export GOPATH=~/.gopath
-export PATH=$GOPATH/bin:$PATH
-
-export OS_NO_CACHE=1
-export OS_VOLUME_API_VERSION=2
-export OS_COMPUTE_API_VERSION=2
-
-export HOMEBREW_NO_ANALYTICS=1
+export HOMEBREW_CASK_OPTS="--appdir=/Applications"

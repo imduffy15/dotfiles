@@ -59,6 +59,10 @@ brew install woff2
 
 brew install jq
 
+# Install kafka tools from the confluent source
+brew tap sgerrand/confluent-platform
+brew install confluent-oss
+
 # Install other useful binaries.
 brew install git
 brew install ssh-copy-id
